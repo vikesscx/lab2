@@ -2,8 +2,7 @@
 
 SELECT *
 FROM disciplines
-WHERE standard_year <= (EXTRACT(YEAR FROM CURRENT_DATE)
-5);
+WHERE standard_year <= (EXTRACT(YEAR FROM CURRENT_DATE) - 5);
 
 --2. Выбрать дисциплины, которые читают преподаватели с почасовой оплатой
 
