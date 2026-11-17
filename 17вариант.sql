@@ -30,17 +30,16 @@ WHERE (w.hourly_rate IS NOT NULL) = TRUE;
 --4. Добавить дисциплины, название которых состоит из нескольких слов и начинается со слова «основы»
 
 INSERT INTO disciplines_report (discipline_id, title, description, standard_year)
-SELECT
-(SELECT COALESCE(MAX(discipline_id), 0) + 1 FROM disciplines),
-'Основы алгоритмизации',
-'Введение в алгоритмы и структуры данных',
-2024
-UNION ALL
-SELECT
-(SELECT COALESCE(MAX(discipline_id), 0) + 2 FROM disciplines),
-'Основы веб-разработки',
-'HTML, CSS, JavaScript для начинающих',
-2023;
+SELECT d.*
+FROM disciplines d
+WHERE d.title ILIKE 'основы%'
+AND d.title LIKE '% %'
+  
+AND NOT EXISTS (
+SELECT 1
+FROM disciplines_report dr
+WHERE dr.discipline_id = d.discipline_id
+);
 
 
 --5. В созданной таблице изменить год введения на 2009 всем дисциплинам с четным кодом
