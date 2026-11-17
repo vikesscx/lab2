@@ -13,7 +13,7 @@ d.description,
 d.standard_year
 FROM disciplines d
 JOIN workload w ON d.discipline_id = w.discipline_id
-WHERE w.hourly_rate > 0;
+WHERE (w.hourly_rate IS NOT NULL) = TRUE;
 
 --3. Создать таблицу, содержащую данные 2 запроса с указанием описания и года введения
 
@@ -25,7 +25,7 @@ d.standard_year
 INTO disciplines_report
 FROM disciplines d
 JOIN workload w ON d.discipline_id = w.discipline_id
-WHERE w.hourly_rate > 0;
+WHERE (w.hourly_rate IS NOT NULL) = TRUE;
 
 --4. Добавить дисциплины, название которых состоит из нескольких слов и начинается со слова «основы»
 
